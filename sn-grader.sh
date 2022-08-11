@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+# parse github organization and repo name
+# ex: ./sn-grader.sh chee-chyuan buidl_guild_cairo
+#
 ORG=$1
 REPO=$2
 
@@ -10,6 +14,10 @@ CONTRIBUTORS=$(curl -s "https://api.github.com/repos/$1/$2/contributors" | jq '.
 echo "PROJECT: $2 by $1"
 echo -e "$CONTRIBUTORS contributors\n"
 
+#
+# check cairo formatting
+# with 'cairo-format'
+#
 N_FILES=0
 N_BAD_FORMAT=0
 for i in `find ./code -name "*.cairo" -type f | grep -v 'code/lib/'`; do
@@ -22,12 +30,20 @@ done
 
 echo -e "$N_FILES cairo files - $N_BAD_FORMAT misformatted\n"
 
+#
+# check amarna output for static analysis
+# and rule infractions
+#
 AMARNA_TOTAL=$(amarna code/ -s | wc -l)
 echo "Amarna Summary - $AMARNA_TOTAL infractions"
 
 amarna code/ -s | awk '{print $1}' | sort | uniq -c | sort -nr
 amarna code/ -o out.sarif
 
+#
+# ensure a test suite was implemented
+# and all tests pass
+#
 PROTO="code/protostar.toml"
 PWD=$(pwd)
 if [ -f "$PROTO" ]; then

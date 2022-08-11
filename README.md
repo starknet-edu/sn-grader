@@ -18,12 +18,6 @@ Install Python Dependencies:
 pip3 install amarna cairo-lang
 ```
 
-## Cairo Format Project
-
-```bash
-./fmt.sh
-```
-
 ## Parse Amarna Sarif
 
 Open the `out.sarif` file with the VS Code extenstion: MS-SarifVSCode.sarif-viewer
