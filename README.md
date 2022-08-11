@@ -29,6 +29,8 @@ Pass the github organization and repo name to the script. Example:
 
 ```bash
 # ex - ./sn-grader.sh chee-chyuan buidl_guild_cairo
+git clone https://github.com/starknet-edu/sn-grader.git
+cd sn-grader
 ./sn-grader.sh <ORG_NAME> <REPO_NAME>
 ```
 
